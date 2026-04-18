@@ -122,4 +122,4 @@ Las imágenes son placeholders con gradientes de colores. Para producción, reem
 
 ## 📝 Licencia
 
-Este proyecto es de código abierto y está disponible bajo la licencia MIT (Copyright © 2024 Giseella Sanchez).
+Este proyecto es de código abierto y está disponible bajo la licencia MIT (Copyright © 2026 Giseella Sanchez).
