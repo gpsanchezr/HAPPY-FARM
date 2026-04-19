@@ -35,7 +35,17 @@ export default function ProductCarousel() {
     return () => clearInterval(interval);
   }, [isAutoplay, products.length]);
 
-  const goToSlide = (index: number) => {
+const goToSlide = (index: number) => {
+    // Emitir evento para vaca
+    const currentProduct = products[index];
+    window.dispatchEvent(new CustomEvent('product:interact', { 
+      detail: { 
+        nombre: currentProduct.name, 
+        categoria: 'destacado',
+        precio: (stock as any)[currentProduct.key]?.precio || 0 
+      } 
+    }));
+    
     setCurrentSlide(index);
     setIsAutoplay(false);
     // Reanudar autoplay después de 10 segundos

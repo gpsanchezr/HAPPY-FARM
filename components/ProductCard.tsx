@@ -31,7 +31,16 @@ interface ProductCardProps {
 export default function ProductCard({ product }: ProductCardProps) {
   const { addItem } = useCart();
 
-  const handleAdd = () => {
+const handleAdd = () => {
+    // Emitir evento para vaca
+    window.dispatchEvent(new CustomEvent('product:interact', { 
+      detail: { 
+        nombre: product.nombre, 
+        categoria: product.categoria,
+        precio: product.precio 
+      } 
+    }));
+    
     addItem(product);
     toast.success(`¡${product.nombre} añadido al carrito! 🛒`, {
       duration: 2500,
