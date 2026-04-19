@@ -1,30 +1,62 @@
-"use client";
-import { useState, useEffect } from "react";
-import "./vaca.css";
+'use client';
+import { useState, useEffect, useRef } from 'react';
+import './vaca.css';
+
+const frases = ['🌽 ¡Muuuucho maíz fresco!', '🚚 ¡Yo te lo llevo a Barranquilla!', '🥕 ¡Qué ricas verduras!', '¿Jugamos o compramos?'];
 
 export default function VacaPro({ cartCount = 0 }) {
   const [mounted, setMounted] = useState(false);
-  const [estado, setEstado] = useState("idle");
-  const [mensaje, setMensaje] = useState("¡Hola! Soy tu asistente");
-  const [imagenFalla, setImagenFalla] = useState(false);
+  const [estado, setEstado] = useState('idle');
+  const [mensaje, setMensaje] = useState('¡Hola! Soy Happy 🐮');
+  const usuarioInteractuo = useRef(false);
 
-  // Elimina error hidratación
-  useEffect(() => { setMounted(true); }, []);
+  const hablarVoz = (texto) => {
+    if (typeof window !== 'undefined' && window.speechSynthesis && usuarioInteractuo.current) {
+      window.speechSynthesis.cancel();
+      const speech = new SpeechSynthesisUtterance(texto);
+      speech.lang = 'es-CO';
+      speech.rate = 1.15; // Un poco más rápido, como un niño emocionado
+      speech.pitch = 1.8; // Tono muy agudo para voz de bebé/dibujo animado
+      window.speechSynthesis.speak(speech);
+    }
+  };
 
-  // Reacción al carrito
+  const reaccionar = (nuevoEstado, nuevoMensaje) => {
+    setEstado(nuevoEstado);
+    setMensaje(nuevoMensaje);
+    hablarVoz(nuevoMensaje);
+  };
+
+  useEffect(() => {
+    setMounted(true);
+    const desbloquearVoz = () => { usuarioInteractuo.current = true; };
+    window.addEventListener('click', desbloquearVoz, { once: true });
+    return () => window.removeEventListener('click', desbloquearVoz);
+  }, []);
+
   useEffect(() => {
     if (!mounted) return;
     if (cartCount > 0) {
-      setEstado("happy");
-      setMensaje("🛒 ¡Excelente elección!");
-      setTimeout(() => setEstado("idle"), 3000);
+      reaccionar('happy', '🛒 ¡Yupi! ¡Comida nueva!');
+      setTimeout(() => reaccionar('idle', '¿Llevamos más?'), 4000);
     }
   }, [cartCount, mounted]);
 
+  useEffect(() => {
+    if (!mounted) return;
+    const interval = setInterval(() => {
+      if (estado === 'idle') {
+        const random = Math.floor(Math.random() * frases.length);
+        reaccionar('idle', frases[random]);
+      }
+    }, 12000);
+    return () => clearInterval(interval);
+  }, [estado, mounted]);
+
   const handleClick = () => {
-    setEstado("tickle");
-    setMensaje("😂 ¡Me haces cosquillas!");
-    setTimeout(() => { setEstado("idle"); setMensaje("Sigue comprando"); }, 2000);
+    usuarioInteractuo.current = true;
+    reaccionar('tickle', '😂 ¡Jajaja! ¡Cosquillas no!');
+    setTimeout(() => reaccionar('idle', '¡Eres muy divertido!'), 3000);
   };
 
   if (!mounted) return null;
@@ -32,20 +64,7 @@ export default function VacaPro({ cartCount = 0 }) {
   return (
     <div className={`vaca ${estado}`} onClick={handleClick}>
       <div className="vaca-msg">{mensaje}</div>
-      
-      {/* Fallback emoji si imagen 404 */}
-      {!imagenFalla ? (
-        <img 
-          src="/imagenes/vaca.png" 
-          alt="Mascota" 
-          onError={() => setImagenFalla(true)}
-          className="w-full drop-shadow-lg"
-        />
-      ) : (
-        <div className="text-[80px] leading-none drop-shadow-lg text-center" title="Guarda vaca.png en public/imagenes">
-          🐮
-        </div>
-      )}
+      <img src="/imagenes/vaca.png" alt="Happy" className="vaca-img drop-shadow-lg" />
     </div>
   );
 }
