@@ -1,0 +1,12 @@
+{
+  "queso": {
+    "nombre": "Queso Campesino",
+    "precio": 12000,
+    "stock": 20
+  },
+  "suero": {
+    "nombre": "Suero Costeño",
+    "precio": 8000,
+    "stock": 15
+  }
+}
