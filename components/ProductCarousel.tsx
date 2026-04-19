@@ -81,10 +81,10 @@ export default function ProductCarousel() {
               {currentProduct.name}
             </h3>
             {stock && (
-              <div className="text-white/80 text-lg space-y-2">
-                <p>Precio: ${stock[currentProduct.key].precio.toLocaleString()}</p>
-                {stock[currentProduct.key].stock > 0 ? (
-                  <p>Disponible: {stock[currentProduct.key].stock}</p>
+            <div className="text-white/80 text-lg space-y-2">
+                <p>Precio: ${(stock as any)[currentProduct.key]?.precio?.toLocaleString() || 'N/A'}</p>
+                {((stock as any)[currentProduct.key]?.stock || 0) > 0 ? (
+                  <p>Disponible: {(stock as any)[currentProduct.key]?.stock}</p>
                 ) : (
                   <p className="font-bold">AGOTADO</p>
                 )}
