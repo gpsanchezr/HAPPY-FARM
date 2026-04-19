@@ -1,19 +1,18 @@
-<<<<<<< HEAD
 import type { Metadata } from 'next';
 import './globals.css';
 import { CartProvider } from '@/context/CartContext';
 import { Toaster } from 'react-hot-toast';
+import VacaPro from '@/components/VacaPro';
 
 export const metadata: Metadata = {
-  title: 'Del Campo a Tu Mesa | Productos Frescos del Caribe',
-  description:
-    'Sabor auténtico del Caribe. Productos frescos y artesanales directamente de nuestros productores a tu mesa en Barranquilla.',
-  keywords: 'productos frescos, orgánicos, caribe, barranquilla, del campo a tu mesa',
+  generator: "Giseella Sanchez - HAPPY FARM Project",
+  title: "Nación Campo Verde - Productos Frescos del Campo",
+  description: "Fuerza rural, corazón ecológico. Productos frescos y naturales directamente del campo a tu hogar",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="es" className="scroll-smooth">
+    <html lang="es" suppressHydrationWarning className="scroll-smooth">
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
@@ -22,9 +21,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           rel="stylesheet"
         />
       </head>
-      <body className="antialiased bg-campo-crema text-campo-oscuro font-sans">
+      <body suppressHydrationWarning className="antialiased bg-campo-crema text-campo-oscuro font-sans">
         <CartProvider>
           {children}
+          <VacaPro cartCount={0} />
           <Toaster
             position="top-right"
             toastOptions={{
@@ -41,26 +41,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             }}
           />
         </CartProvider>
-=======
-import type { Metadata } from "next";
-import "./globals.css";
-
-export const metadata: Metadata = {
-  generator: "Giseella Sanchez - HAPPY FARM Project",
-  title: "Nación Campo Verde - Productos Frescos del Campo",
-  description: "Fuerza rural, corazón ecológico. Productos frescos y naturales directamente del campo a tu hogar",
-};
-
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
-  return (
-    <html lang="es" className="scroll-smooth">
-      <body className="antialiased">
-        {children}
->>>>>>> c52522c717933bb1ab82d9413fec7dc1719f5321
       </body>
     </html>
   );
