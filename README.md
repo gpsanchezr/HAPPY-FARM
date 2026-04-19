@@ -1,6 +1,13 @@
 # Campo Verde - Tienda de Productos del Campo
 
-Interfaz de usuario moderna y elegante para una tienda de productos del campo, desarrollada con Next.js y TailwindCSS.
+Interfaz de usuario moderna y elegante para una tienda de productos del campo, desarrollada con Next.js y TailwindCSS. 
+🏠 Next.js App Router (/app)
+🛒 carrito (CartContext)
+🧩 componentes UI (Navbar, Hero, Checkout)
+🧑‍🌾 concepto de tienda “Del campo a tu mesa”
+⚙️ backend posible con Supabase
+
+👉 Es una tienda ecommerce agrícola
 
 ## 🌿 Características
 
