@@ -1,7 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-<<<<<<< HEAD
+
+/* De aquí para abajo sigue el resto de tu CSS (colores, fuentes, etc.) */
 
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Arvo:ital,wght@0,400;0,700;1,400&display=swap');
 
@@ -116,5 +117,3 @@ body {
   background: #FAF4EC;
   border-color: #4A5D3B;
 }
-=======
->>>>>>> c52522c717933bb1ab82d9413fec7dc1719f5321
