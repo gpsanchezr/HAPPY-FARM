@@ -35,7 +35,7 @@ export default function InteractiveCow({ onCowEvent }: { onCowEvent?: (event: st
   const [showMessage, setShowMessage] = useState<CowMessage | null>(null);
   const [position, setPosition] = useState({ x: 90, y: 90 });
   const animationRef = useRef<NodeJS.Timeout | null>(null);
-  const { cartItems } = useCart();
+const { items: cartItems } = useCart();
 
   // Seguir cursor suavemente
   useEffect(() => {
@@ -123,7 +123,7 @@ export default function InteractiveCow({ onCowEvent }: { onCowEvent?: (event: st
       style={{ right: `${position.x}vw`, bottom: `${position.y}vh` }}
       initial={{ scale: 0, opacity: 0 }}
       animate={{ scale: 1, opacity: 1 }}
-      variants={variants[state as keyof typeof variants]}
+variants={variants[state as keyof typeof variants] as any}
       onClick={handleClick}
       onDoubleClick={handleDoubleClick}
       whileHover={{ scale: 1.1 }}

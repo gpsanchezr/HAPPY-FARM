@@ -13,13 +13,13 @@ export default function ProductCarousel() {
     {
       id: 1,
       name: "Queso Campesino",
-      image: "/queso.jpg",
+image: "https://cgskfhhcmokoairzfcxa.supabase.co/storage/v1/object/public/catalogo/queso.jpg",
       key: "queso",
     },
     {
       id: 2,
       name: "Suero Costeño",
-      image: "/suero.jpg",
+image: "https://cgskfhhcmokoairzfcxa.supabase.co/storage/v1/object/public/catalogo/suero.jpg",
       key: "suero",
     },
   ];
@@ -74,12 +74,13 @@ const goToSlide = (index: number) => {
         <div className="relative bg-gray-100 rounded-lg overflow-hidden shadow-lg">
           {/* Slide */}
           <div className="relative h-64 sm:h-96 bg-gray-200">
-            <Image
+<Image
               src={currentProduct.image}
               alt={currentProduct.name}
               fill
               className="object-contain"
               priority
+              unoptimized={true}
             />
             {/* Fallback gradient if image fails */}
             <div className="absolute inset-0 bg-gradient-to-br from-yellow-400 to-yellow-600 opacity-0 hover:opacity-0" />

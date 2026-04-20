@@ -8,27 +8,29 @@ import Footer from '@/components/Footer';
 import CartSidebar from '@/components/CartSidebar';
 import WhatsAppChatWidget from '@/components/WhatsAppChatWidget';
 import VacaPro from '@/components/VacaPro';
+import InventoryProvider from '@/components/InventoryProvider';
 
 export default function Home() {
   return (
     <main className="min-h-screen bg-campo-crema">
       <Navbar />
       <Hero />
-      
-      {/* Sección del Carrusel Destacado */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <h2 className="text-3xl font-bold text-campo-verde mb-8 text-center font-serif">
-          Nuestros Destacados
-        </h2>
-        <ProductCarousel />
-      </div>
 
-      <CatalogSection />
+      <InventoryProvider>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <h2 className="text-3xl font-bold text-campo-verde mb-8 text-center font-serif">
+            Nuestros Destacados
+          </h2>
+          <ProductCarousel />
+        </div>
+
+        <CatalogSection />
+      </InventoryProvider>
+
       <About />
       <Values />
       <Footer />
 
-      {/* Widgets y Asistente */}
       <CartSidebar />
       <WhatsAppChatWidget />
       <VacaPro />

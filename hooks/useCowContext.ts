@@ -30,10 +30,12 @@ const cowReducer = (state: CowState, action: CowAction): CowState => {
   }
 };
 
-const CowContext = createContext<{
+interface CowContextType {
   state: CowState;
   dispatch: React.Dispatch<CowAction>;
-} | null>(null);
+}
+
+const CowContext = createContext<CowContextType | null>(null);
 
 export function CowProvider({ children }: { children: React.ReactNode }) {
   const [state, dispatch] = useReducer(cowReducer, initialState);

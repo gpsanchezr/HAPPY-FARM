@@ -1,0 +1,9 @@
+{
+  "css.validate": false,
+  "css.lint.unknownAtRules": "ignore",
+  "typescript.preferences.includePackageJsonAutoImports": "auto",
+  "typescript.suggest.autoImports": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  }
+}
