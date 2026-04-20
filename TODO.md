@@ -1,17 +1,29 @@
-# TODO: Hacer Proyecto a Nombre de Giseella Sanchez
+# TODO.md - Plan aprobado para fixes de imágenes y sintaxis
 
-## Pendientes ✅
-[ ] 1. Editar package.json - Agregar campo author: "Giseella Sanchez"
-[ ] 2. Reemplazar LICENSE con MIT License nombrando a Giseella Sanchez
-[ ] 3. Editar components/Footer.tsx - Copyright a Giseella Sanchez
-[ ] 4. Editar README.md - Agregar sección Autor
-[ ] 5. Editar app/layout.tsx - Agregar metadata generator
-[ ] 6. Ejecutar npm run lint para verificar
-[ ] 7. Probar npm run dev (funcionalidad intacta)
+## ✅ Status Legend
+- [ ] **Pending**
+- [✅] **Completed**
 
-## Completado
-- [x] Análisis de archivos
-- [x] Plan aprobado (por defecto si no objeciones)
+## 📋 Pasos del plan (en orden lógico):
 
-**Nota:** Cambios NO afectan funcionamiento. Solo atribución de autoría.
+### 1. [ ] Crear este TODO.md (tracking progress)
+### 2. [ ] Edit ProductCard.tsx 
+   - Reescribir sección de validación de imagen con cleanUrl + .replace(/[\n\r]/g, '').trim()
+   - Aplicar estructura JSX exacta solicitada (h-48, clases específicas)
+   - Confirmar sintaxis line 74 fixed
+### 3. [ ] Edit ProductCarousel.tsx 
+   - Limpiar URLs hardcoded de Supabase con .replace(/[\n\r]/g, '').trim()
+### 4. [ ] Edit VacaPro.tsx
+   - Cambiar src="/imagenes/vaca-mascota.gif" → "/imagenes/vaca.png"
+### 5. [ ] Verificar/testear
+   - `npm run dev`
+   - Check consola/network: no más 400/404 en imágenes
+   - Confirmar ProductCard renderiza correctamente
+### 6. [ ] attempt_completion
 
+**Notas:** 
+- Todos los <Image> ya tienen unoptimized={true}
+- Cambios mínimos y precisos
+- Preservar resto del código intacto
+
+**Próximo paso actual: 2/6**

@@ -31,7 +31,7 @@ interface ProductCardProps {
 export default function ProductCard({ product }: ProductCardProps) {
   const { addItem } = useCart();
 
-const handleAdd = () => {
+  const handleAdd = () => {
     // Emitir evento para vaca
     window.dispatchEvent(new CustomEvent('product:interact', { 
       detail: { 
@@ -53,23 +53,28 @@ const handleAdd = () => {
     minimumFractionDigits: 0,
   }).format(product.precio);
 
+  // 1. Limpiamos y validamos la URL
+  const cleanUrl = product.imagen_url ? product.imagen_url.replace(/[\\n\\r]/g, '').trim() : '';
+  const isValidUrl = Boolean(cleanUrl && cleanUrl.startsWith('http'));
+
+  // 2. Renderizamos la tarjeta
   return (
-    <div className="product-card bg-campo-card rounded-4xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 group flex flex-col">
-      {/* ─── Image ─── */}
-      <div className="relative h-52 overflow-hidden bg-campo-tierra/10">
-        {product.imagen_url ? (
+    <div className="group relative flex flex-col bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden border border-campo-tierra/10">
+      <div className="relative h-48 w-full overflow-hidden bg-gray-100">
+        {isValidUrl ? (
           <Image
-            src={product.imagen_url}
+            src={cleanUrl}
             alt={product.nombre}
             fill
-            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-            className="object-cover product-img"
+            className="object-cover group-hover:scale-105 transition-transform duration-500"
+            unoptimized={true}
           />
         ) : (
-          <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-campo-tierra/20 to-campo-verde/20">
-            <Package className="w-12 h-12 text-campo-tierra/40" />
+          <div className="w-full h-full flex items-center justify-center text-campo-tierra/40 bg-gray-200">
+            <Package className="w-12 h-12" />
           </div>
         )}
+        
         {/* Category tag */}
         <div className="absolute top-3 left-3">
           <span className="bg-campo-crema/90 backdrop-blur-sm text-campo-oscuro text-[10px] font-semibold tracking-wide uppercase px-2.5 py-1 rounded-full border border-campo-tierra/20">

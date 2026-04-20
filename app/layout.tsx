@@ -1,13 +1,13 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import { CartProvider } from '@/context/CartContext';
+import InventoryProvider from '@/components/InventoryProvider';
 import { Toaster } from 'react-hot-toast';
 import VacaPro from '@/components/VacaPro';
 
 export const metadata: Metadata = {
-  generator: "Giseella Sanchez - HAPPY FARM Project",
-  title: "Nación Campo Verde - Productos Frescos del Campo",
-  description: "Fuerza rural, corazón ecológico. Productos frescos y naturales directamente del campo a tu hogar",
+  title: 'Del Campo a Tu Mesa',
+  description: 'Productos frescos del Caribe',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -22,25 +22,27 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body suppressHydrationWarning className="antialiased bg-campo-crema text-campo-oscuro font-sans">
-        <CartProvider>
-          {children}
-          <VacaPro cartCount={0} />
-          <Toaster
-            position="top-right"
-            toastOptions={{
-              style: {
-                fontFamily: 'Montserrat, sans-serif',
-                background: '#2C2C2C',
-                color: '#FDFBF6',
-                borderRadius: '1rem',
-                padding: '12px 18px',
-              },
-              success: {
-                iconTheme: { primary: '#4A5D3B', secondary: '#FDFBF6' },
-              },
-            }}
-          />
-        </CartProvider>
+        <InventoryProvider>
+          <CartProvider>
+            {children}
+            <VacaPro cartCount={0} />
+            <Toaster
+              position="top-right"
+              toastOptions={{
+                style: {
+                  fontFamily: 'Montserrat, sans-serif',
+                  background: '#2C2C2C',
+                  color: '#FDFBF6',
+                  borderRadius: '1rem',
+                  padding: '12px 18px',
+                },
+                success: {
+                  iconTheme: { primary: '#4A5D3B', secondary: '#FDFBF6' },
+                },
+              }}
+            />
+          </CartProvider>
+        </InventoryProvider>
       </body>
     </html>
   );

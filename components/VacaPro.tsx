@@ -127,7 +127,7 @@ export default function VacaPro({ cartCount = 0 }: { cartCount?: number }) {
   return (
     <div className={`vaca ${estado}`} onClick={handleClick}>
       <div className="vaca-msg">{mensaje}</div>
-      <img src="/imagenes/vaca-mascota.gif" alt="Happy la vaca" className="vaca-img" />
+      <img src="/imagenes/vaca.png" alt="Happy la vaca" className="vaca-img" />
     </div>
   );
 }

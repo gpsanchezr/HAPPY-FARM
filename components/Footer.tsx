@@ -1,5 +1,5 @@
 // components/Footer.tsx
-import { Leaf, Phone, Mail, MapPin, Instagram, Facebook } from 'lucide-react';
+import { Leaf, Phone, Mail, MapPin } from 'lucide-react';
 
 export default function Footer() {
   const WA_NUMBER = process.env.NEXT_PUBLIC_WA_NUMBER || '573000000000';
@@ -24,8 +24,18 @@ export default function Footer() {
             </p>
             <div className="flex gap-3">
               {[
-                { icon: <Instagram className="w-4 h-4" />, href: '#', label: 'Instagram' },
-                { icon: <Facebook className="w-4 h-4" />, href: '#', label: 'Facebook' },
+{ icon: (
+  <svg viewBox="0 0 24 24" className="w-4 h-4 fill-current">
+    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+    <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/>
+    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+  </svg>
+), href: '#', label: 'Instagram' },
+{ icon: (
+  <svg viewBox="0 0 24 24" className="w-4 h-4 fill-current">
+    <path d="M18 2h-3.17c-.53 0-1 .28-1.23.67l-.92 2.41C12.35 5.18 11.6 5 11 5H6V4c0-.55-.45-1-1-1s-1 .45-1 1v11c0 .55.45 1 1 1h5v-4h4l.9-.75c.37-.31.6-.87.6-1.49V5z"/>
+  </svg>
+), href: '#', label: 'Facebook' },
                 {
                   icon: (
                     <svg viewBox="0 0 24 24" className="w-4 h-4 fill-current">
