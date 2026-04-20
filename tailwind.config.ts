@@ -1,4 +1,4 @@
-import type { Config } from "tailwindcss";
+import type { Config } from "tailwindcss"
 
 const config: Config = {
   content: [
@@ -9,14 +9,15 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-<<<<<<< HEAD
-        "campo-crema": "#FDFBF6",
-        "campo-verde": "#4A5D3B",
-        "campo-verde-light": "#5D7449",
-        "campo-tierra": "#B88E6D",
-        "campo-tierra-light": "#C9A583",
-        "campo-oscuro": "#2C2C2C",
-        "campo-card": "#F7F4EE",
+        campo: {
+          crema: "#FDFBF6",
+          verde: "#4A5D3B",
+          "verde-light": "#5D7449",
+          tierra: "#B88E6D",
+          "tierra-light": "#C9A583",
+          oscuro: "#2C2C2C",
+          card: "#F7F4EE",
+        },
       },
       fontFamily: {
         sans: ["var(--font-montserrat)", "sans-serif"],
@@ -63,24 +64,11 @@ const config: Config = {
         popIn: {
           "0%": { opacity: "0", transform: "scale(0.8) translateY(10px)" },
           "100%": { opacity: "1", transform: "scale(1) translateY(0)" },
-=======
-        primary: {
-          50: '#f0fdf4',
-          100: '#dcfce7',
-          200: '#bbf7d0',
-          300: '#86efac',
-          400: '#4ade80',
-          500: '#22c55e',
-          600: '#16a34a',
-          700: '#15803d',
-          800: '#166534',
-          900: '#14532d',
->>>>>>> c52522c717933bb1ab82d9413fec7dc1719f5321
         },
       },
     },
   },
   plugins: [],
-};
+}
 
-export default config;
+export default config

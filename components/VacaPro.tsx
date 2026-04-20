@@ -1,6 +1,7 @@
 'use client';
 import { useState, useEffect, useRef, useCallback } from 'react';
-import './vaca.css';
+import Lottie from 'lottie-react';
+import animationData from './chico-hablando.json';
 
 interface ProductDetail {
   nombre: string;
@@ -145,15 +146,13 @@ const [estado, setEstado] = useState<'idle' | 'happy' | 'tickle' | 'sad'>('idle'
   return (
     <div className={`vaca ${estado}`} onClick={handleClick}>
       <div className="vaca-msg">{mensaje}</div>
-      <div 
-        className="vaca-img w-24 h-24 md:w-32 md:h-32 transition-all duration-100 ease-in-out drop-shadow-lg" 
-        style={{ 
-          backgroundImage: `url('/imagenes/vaca.png')`, 
-          backgroundSize: '500% 600%', 
-          backgroundPosition: getMascotPosition(),
-          backgroundRepeat: 'no-repeat'
-        }}
-      />
+      <div className="w-32 h-32 md:w-40 md:h-40">
+        <Lottie 
+          animationData={animationData} 
+          loop={true} 
+          autoplay={true} 
+        />
+      </div>
     </div>
   );
 }
