@@ -1,5 +1,5 @@
 // components/Footer.tsx
-import { Leaf, Phone, Mail, MapPin, Instagram, Facebook } from 'lucide-react';
+import { Leaf, Phone, Mail, MapPin, Share2, MessageCircle } from 'lucide-react';
 
 export default function Footer() {
   const WA_NUMBER = process.env.NEXT_PUBLIC_WA_NUMBER || '573000000000';
@@ -23,9 +23,9 @@ export default function Footer() {
               Barranquilla. Calidad, sabor y tradición en cada entrega.
             </p>
             <div className="flex gap-3">
-              {[
-                { icon: <Instagram className="w-4 h-4" />, href: '#', label: 'Instagram' },
-                { icon: <Facebook className="w-4 h-4" />, href: '#', label: 'Facebook' },
+{[
+                { icon: <Share2 className="w-4 h-4" />, href: '#', label: 'Share' },
+                { icon: <MessageCircle className="w-4 h-4" />, href: `https://wa.me/${WA_NUMBER}`, label: 'WhatsApp' },
                 {
                   icon: (
                     <svg viewBox="0 0 24 24" className="w-4 h-4 fill-current">

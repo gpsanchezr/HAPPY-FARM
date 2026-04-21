@@ -1,6 +1,7 @@
 'use client';
 import { useState, useEffect, useRef, useCallback } from 'react';
-import './vaca.css';
+import Lottie from 'lottie-react';
+import animationData from './chico-hablando.json';
 
 interface ProductDetail {
   nombre: string;
@@ -23,12 +24,23 @@ const SUGERENCIAS: Record<string, string[]> = {
 };
 
 export default function VacaPro({ cartCount = 0 }: { cartCount?: number }) {
-  const [estado, setEstado] = useState<'idle' | 'happy' | 'tickle' | 'sad'>('idle');
+const [estado, setEstado] = useState<'idle' | 'happy' | 'tickle' | 'sad'>('idle');
   const [mensaje, setMensaje] = useState('¡Hola! Soy Happy 🐮');
+  const [mascotPose, setMascotPose] = useState<'reposo' | 'saludando' | 'hablando'>('reposo');
   const [mounted, setMounted] = useState(false);
   const usuarioInteractuo = useRef(false);
   const ultimoProducto = useRef<ProductDetail | null>(null);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+// Función sprite position
+  const getMascotPosition = () => {
+    switch (mascotPose) {
+      case 'saludando': return '100% 0%'; // Columna 5, Fila 1
+      case 'hablando': return '75% 0%';   // Columna 4, Fila 1  
+      case 'reposo':
+      default: return '0% 0%';            // Columna 1, Fila 1
+    }
+  };
 
   // Voz
   const hablar = useCallback((texto: string) => {
@@ -40,6 +52,9 @@ export default function VacaPro({ cartCount = 0 }: { cartCount?: number }) {
     utterance.rate = 1.2;
     utterance.pitch = 1.8; // Tono agudo
     utterance.volume = 0.8;
+    
+    utterance.onstart = () => setMascotPose('hablando');
+    utterance.onend = () => setMascotPose('reposo');
     
     window.speechSynthesis.speak(utterance);
   }, []);
@@ -116,10 +131,14 @@ export default function VacaPro({ cartCount = 0 }: { cartCount?: number }) {
 
   // Click (cosquillas)
   const handleClick = () => {
+    setMascotPose('saludando');
     usuarioInteractuo.current = true;
     reaccionar('tickle', '😂 ¡Jajaja cosquillas!');
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
-    timeoutRef.current = setTimeout(() => reaccionar('idle', '¡Eres muy divertido! 😊'), 3000);
+    timeoutRef.current = setTimeout(() => {
+      reaccionar('idle', '¡Eres muy divertido! 😊');
+      setMascotPose('reposo');
+    }, 3000);
   };
 
   if (!mounted) return null;
@@ -127,7 +146,13 @@ export default function VacaPro({ cartCount = 0 }: { cartCount?: number }) {
   return (
     <div className={`vaca ${estado}`} onClick={handleClick}>
       <div className="vaca-msg">{mensaje}</div>
-      <img src="/imagenes/vaca-mascota.gif" alt="Happy la vaca" className="vaca-img" />
+      <div className="w-32 h-32 md:w-40 md:h-40">
+        <Lottie 
+          animationData={animationData} 
+          loop={true} 
+          autoplay={true} 
+        />
+      </div>
     </div>
   );
 }
