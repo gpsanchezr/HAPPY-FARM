@@ -3,26 +3,53 @@
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import { useInventory } from "@/components/InventoryProvider";
+import { supabase } from "@/lib/supabase";
+import type { Product } from "@/types";
 
 export default function ProductCarousel() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isAutoplay, setIsAutoplay] = useState(true);
+  const [featuredProducts, setFeaturedProducts] = useState<Product[]>([]);
   const { stock } = useInventory();
 
-  const products = [
+  // Fetch featured products from Supabase
+  useEffect(() => {
+    async function fetchFeaturedProducts() {
+      try {
+        const { data, error } = await supabase
+          .from('productos')
+          .select('*')
+          .eq('destacado', true)
+          .order('created_at', { ascending: false });
+        
+        if (error) throw error;
+        setFeaturedProducts(data || []);
+      } catch (error) {
+        console.error('Error fetching featured products:', error);
+      }
+    }
+
+    fetchFeaturedProducts();
+  }, []);
+
+  const products = featuredProducts.length > 0 ? featuredProducts.map(p => ({ ...p, key: p.id })) : [
     {
-      id: 1,
-      name: "Queso Campesino",
-      image: "/queso.jpg",
+      id: "1",
+      nombre: "Queso Campesino",
+      imagen_url: "/queso.jpg",
       key: "queso",
+      precio: 25000,
+      stock: 50
     },
     {
-      id: 2,
-      name: "Suero Costeño",
-      image: "/suero.jpg",
+      id: "2",
+      nombre: "Suero Costeño",
+      imagen_url: "/suero.jpg",
       key: "suero",
+      precio: 15000,
+      stock: 30
     },
-  ];
+  ] as Product[];
 
   // Autoplay
   useEffect(() => {
@@ -40,9 +67,9 @@ const goToSlide = (index: number) => {
     const currentProduct = products[index];
     window.dispatchEvent(new CustomEvent('product:interact', { 
       detail: { 
-        nombre: currentProduct.name, 
+        nombre: currentProduct.nombre, 
         categoria: 'destacado',
-        precio: (stock as any)[currentProduct.key]?.precio || 0 
+        precio: currentProduct.precio || (stock as any)[currentProduct.key || currentProduct.id]?.precio || 0 
       } 
     }));
     
@@ -75,11 +102,12 @@ const goToSlide = (index: number) => {
           {/* Slide */}
           <div className="relative h-64 sm:h-96 bg-gray-200">
             <Image
-              src={currentProduct.image}
-              alt={currentProduct.name}
+              src={currentProduct.imagen_url || '/placeholder-product.jpg'}
+              alt={currentProduct.nombre}
               fill
               className="object-contain"
               priority
+              unoptimized={true}
             />
             {/* Fallback gradient if image fails */}
             <div className="absolute inset-0 bg-gradient-to-br from-yellow-400 to-yellow-600 opacity-0 hover:opacity-0" />
@@ -88,18 +116,16 @@ const goToSlide = (index: number) => {
           {/* Product Info Overlay */}
           <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-8 py-12">
             <h3 className="text-3xl sm:text-4xl font-bold text-white mb-4">
-              {currentProduct.name}
+              {currentProduct.nombre}
             </h3>
-            {stock && (
             <div className="text-white/80 text-lg space-y-2">
-                <p>Precio: ${(stock as any)[currentProduct.key]?.precio?.toLocaleString() || 'N/A'}</p>
-                {((stock as any)[currentProduct.key]?.stock || 0) > 0 ? (
-                  <p>Disponible: {(stock as any)[currentProduct.key]?.stock}</p>
+                <p>Precio: {currentProduct.precio?.toLocaleString('es-CO', { style: 'currency', currency: 'COP' }) || 'N/A'}</p>
+                {currentProduct.stock > 0 ? (
+                  <p>Disponible: {currentProduct.stock}</p>
                 ) : (
                   <p className="font-bold">AGOTADO</p>
                 )}
               </div>
-            )}
           </div>
 
           {/* Navigation Arrows */}
